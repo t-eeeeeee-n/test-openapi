@@ -9,6 +9,8 @@ COPY . .
 
 RUN npx prisma generate
 
+RUN npx prisma migrate deploy
+
 # tsoaのルート生成
 RUN npm run tsoa:gen
 
