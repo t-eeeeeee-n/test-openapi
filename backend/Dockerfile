@@ -7,8 +7,11 @@ RUN npm install
 
 COPY . .
 
+RUN npx prisma generate
+
 # tsoaのルート生成
 RUN npm run tsoa:gen
 
 EXPOSE 3001
+
 CMD ["npm", "run", "dev"]
