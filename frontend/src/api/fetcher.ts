@@ -1,22 +1,31 @@
-const customFetcher = async <T>({ url, method, data, ...rest }: any): Promise<T> => {
-    const response = await fetch(`http://localhost:3001${url}`, {
+interface FetcherParams {
+    url: string;
+    method: string;
+    data?: unknown;
+    signal?: AbortSignal;
+    headers?: HeadersInit;
+}
+
+const customFetcher = async <T>({ url, method, data, signal, headers }: FetcherParams): Promise<T> => {
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001';
+
+    const res = await fetch(`${baseUrl}${url}`, {
         method,
         headers: {
             'Content-Type': 'application/json',
+            ...headers,
         },
         body: data ? JSON.stringify(data) : undefined,
-        ...rest,
+        signal,
     });
 
-    if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
+    if (!res.ok) {
+        throw new Error(`API error ${res.status}`);
     }
 
-    if (response.status === 204) {
-        return undefined as T;
-    }
+    if (res.status === 204) return undefined as T;
 
-    return response.json();
+    return res.json();
 };
 
 export default customFetcher;
