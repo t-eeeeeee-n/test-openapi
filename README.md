@@ -1,84 +1,118 @@
-# test-openapi
+# Test OpenAPI Fullstack App 🚀
 
-Google拡張機能向けのフルスタックテンプレート。  
-**Next.js + Express + Prisma + tsoa + orval構成**で、クリーンアーキテクチャベースの開発が可能です。
+Google拡張機能の開発に向けた、Next.js × Express × Prisma × OpenAPI を使ったフルスタックアプリケーション。
 
----
+## 📦 Tech Stack
 
-## 🚀 技術スタック
-
-- **Frontend**: Next.js, TypeScript, Tailwind CSS, React Query, orval (OpenAPI Client)
-- **Backend**: Express.js, TypeScript, tsoa (OpenAPI), Prisma (ORM)
-- **Database**: SQLite（dev/test用）
-- **API仕様**: OpenAPI (Swagger UI対応)
-- **Testing**: Jest, Supertest
-- **構成**: Clean Architecture（Domain, Application, Infrastructure, Presentation）
-
----
-
-## ⚙️ セットアップ
-
-```bash
-git clone https://github.com/yourname/test-openapi.git
-cd test-openapi
-npm install
-```
-
-### Backend
-
-```bash
-cd backend
-npm install
-npx prisma migrate dev         # SQLite用DBマイグレーション
-npm run tsoa:gen               # tsoaのroute & swagger生成
-npm run dev                    # http://localhost:3001 起動
-```
-
-Swagger UI 👉 `http://localhost:3001/docs`
-
-### Frontend
-
-```bash
-cd frontend
-npm install
-npx orval                     # OpenAPIからAPI Hooks生成
-npm run dev                   # http://localhost:3002 起動
-```
+- **Frontend**: Next.js 15 + TypeScript + Tailwind CSS + React Query
+- **Backend**: Express + TypeScript + tsoa
+- **DB**: PostgreSQL（Prisma ORM）
+- **API定義**: OpenAPI 3.0（tsoa → orval）
+- **APIドキュメント**: Swagger UI
+- **Docker**: Compose対応（dev/prod両対応）
+- **Hosting**
+  - Frontend: Vercel
+  - Backend + DB: Railway
 
 ---
 
-## 🧪 テスト
+## 🌐 本番環境
+
+| サービス  | URL |
+|-----------|-----|
+| Frontend | https://your-frontend.vercel.app |
+| Backend  | https://your-backend.up.railway.app |
+| Swagger  | https://your-backend.up.railway.app/docs |
+
+---
+
+## 🧱 機能概要
+
+- ✅ ユーザー一覧取得（GET /users）
+- ✅ ユーザー登録（POST /users）
+- ✅ ユーザー削除（DELETE /users/{userId}）
+- ✅ Swagger UI による自動APIドキュメント生成
+- ✅ Prismaによる型安全なDBアクセス
+- ✅ orvalによるフロント側API自動生成
+- ✅ Docker Compose による開発環境統一
+
+---
+
+## 🧪 開発中にやったこと（タスクログ風）
+
+- [x] tsoa導入でOpenAPI自動生成
+- [x] Swagger UIで `/docs` エンドポイント表示
+- [x] orvalでReact Query Hooksを自動生成
+- [x] `useGetUser`, `useCreateUser` などをUIで使用
+- [x] Prismaでスキーマ定義→マイグレーション
+- [x] Jestでユースケース単体テスト
+- [x] Clean Architecture導入（domain / application / infra / presentation）
+- [x] Railway + Vercel で CI/CD 本番連携！
+
+---
+
+## 🐳 Docker 開発
 
 ```bash
-# ユースケース・API両方のテスト実行
-cd backend
-npx jest
+# 開発用起動
+docker-compose up --build
+
+# フロント： http://localhost:3000
+# バックエンド： http://localhost:3001
+# Swagger: http://localhost:3001/docs
 ```
 
 ---
 
-## 📂 ディレクトリ構成（一部）
+## 🔐 環境変数
+
+`.env`, `.env.local`, `.env.test` など
+
+```env
+DATABASE_URL=postgres://devuser:devpass@db:5432/devdb
+NEXT_PUBLIC_API_BASE_URL=http://localhost:3001
+```
+
+---
+
+## 🛠 今後のアイデア
+
+- [ ] JWTログイン対応
+- [ ] ログ出力・監視（Sentry, Logtailなど）
+- [ ] Github ActionsでのCI/CD
+- [ ] StorybookによるUIコンポーネント管理
+- [ ] バリデーション強化（Zodなど）
+
+---
+
+## 👏 Special Thanks
+
+このREADMEはプロジェクト構築の流れを元に作成されました。  
+この内容は自己学習・共有・ポートフォリオなど自由に再利用可能です！
+
+---
+
+## 📁 ディレクトリ構成（backend）
 
 ```
 backend/
 ├── src/
-│   ├── domain/            # Entity・Repository定義
-│   ├── application/       # UseCase（ビジネスロジック）
-│   ├── infrastructure/    # DBや外部連携
-│   ├── presentation/      # tsoa Controller
-│   ├── pkg/               # 共通util/logger/env/errorなど
-│   ├── middleware/        # ErrorHandler等
-│   ├── server.ts          # Expressエントリーポイント
-│   └── swagger.json       # OpenAPI仕様
+│   ├── domain/
+│   ├── application/
+│   ├── infrastructure/
+│   ├── presentation/
+│   ├── controllers/
+│   ├── routes.ts
+│   └── server.ts
+├── prisma/
+├── tests/
+├── Dockerfile
+├── entrypoint.sh
+└── ...
 ```
 
 ---
 
-## 💬 補足メモ
+## 💬 お問い合わせ
 
-- フロントとAPIはOpenAPIで完全連携（orvalで自動生成）
-- DBはPrismaで永続化、テストではSQLite使用
-- `logger` / `errors` / `env` は共通管理で拡張しやすい
-- テスト環境用 `.env.test` に切り替えればDB分離OK
-
----
+質問・アドバイス・バグ報告などあればお気軽にどうぞ！
