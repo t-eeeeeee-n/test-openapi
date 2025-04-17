@@ -5,28 +5,15 @@ import {useCreateUser, useDeleteUser, useGetUsers, useUpdateUser} from '@/api/us
 
 export default function HomePage() {
     const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [editingUserId, setEditingUserId] = useState<string | null>(null);
+    const [editedName, setEditedName] = useState('');
+
     const {
         data: users,
         refetch,
     } = useGetUsers();
-    const [editingUserId, setEditingUserId] = useState<string | null>(null);
-    const [editedName, setEditedName] = useState('');
-
-    const mutation = useCreateUser({
-        mutation: {
-            onSuccess: () => {
-                refetch();
-            },
-        },
-    });
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (name) {
-            mutation.mutate({ data: { name } });
-            setName('');
-        }
-    };
 
     const deleteMutation = useDeleteUser({
         mutation: {
@@ -51,22 +38,7 @@ export default function HomePage() {
 
     return (
         <main className="p-6 space-y-6">
-            <h1 className="text-2xl font-bold">ユーザー登録</h1>
-
-            <form onSubmit={handleSubmit} className="space-x-4">
-                <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="border rounded p-2"
-                    placeholder="名前を入力"
-                />
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-                    登録
-                </button>
-            </form>
-
-            <h2 className="text-xl font-semibold mt-6">ユーザー一覧</h2>
+            <h1 className="text-xl font-semibold mt-6">ユーザー一覧</h1>
             {users?.map((user) => (
                 <li key={user.id} className="border p-2 rounded shadow flex justify-between items-center">
                     {editingUserId === user.id ? (
@@ -96,7 +68,7 @@ export default function HomePage() {
                     ) : (
                         <>
                             <span>
-                              <strong>{user.name}</strong>（ID: {user.id}）
+                              <strong>{user.name}</strong>（{user.email}）ID: {user.id}
                             </span>
                             <div className="flex gap-2">
                                 <button

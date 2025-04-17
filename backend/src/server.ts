@@ -3,13 +3,15 @@ import cors from 'cors';
 import { RegisterRoutes } from './routes';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger.json';
-import {errorHandler} from "./middleware/errorHandler";
+import { errorHandler } from "./middleware/errorHandler";
+import { jwtMiddleware } from "./middleware/jwtMiddleware";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 RegisterRoutes(app);
+app.use('/users', jwtMiddleware as express.RequestHandler);
 app.use(errorHandler as express.ErrorRequestHandler);
 
 if (process.env.NODE_ENV !== 'test') {

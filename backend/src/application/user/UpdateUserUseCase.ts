@@ -1,11 +1,12 @@
-import { UserRepository } from '../../domain/user/UserRepository';
-import { User } from '../../domain/user/User';
+import { UserManagementRepository } from '../../domain/user/UserManagementRepository';
+import {UserResponse} from "../../dto/user/UserResponse";
+import {UpdateUserRequest} from "../../dto/user/UpdateUserRequest";
 
 export class UpdateUserUseCase {
-    constructor(private readonly userRepo: UserRepository) {}
+    constructor(private readonly userRepo: UserManagementRepository) {}
 
-    async execute(user: User): Promise<User> {
-        await this.userRepo.update(user);
-        return user;
+    async execute(user: UpdateUserRequest): Promise<UserResponse> {
+        const res = await this.userRepo.update(user);
+        return {id: res.id, name: res.name, email: res.email};
     }
 }

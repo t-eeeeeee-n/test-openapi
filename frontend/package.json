@@ -12,10 +12,12 @@
   "dependencies": {
     "@tanstack/react-query": "^5.74.3",
     "@tanstack/react-query-devtools": "^5.74.3",
+    "chokidar": "^4.0.3",
     "lightningcss": "^1.29.3",
     "next": "15.3.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "webpack-dev-middleware": "^7.4.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

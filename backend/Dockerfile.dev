@@ -5,14 +5,19 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
+RUN apt-get update && apt-get install -y netcat-openbsd
+
 COPY . .
 
 RUN npx prisma generate
-RUN npx prisma migrate dev --name init
+RUN #npx prisma migrate dev --name init
 
 # tsoaのルート生成
 RUN npm run tsoa:gen
 
+COPY entrypoint.dev.sh .
+RUN chmod +x entrypoint.dev.sh
+
 EXPOSE 3001
 
-CMD ["npm", "run", "dev"]
+CMD ["./entrypoint.dev.sh"]

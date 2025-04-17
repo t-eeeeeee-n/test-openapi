@@ -5,8 +5,8 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export interface CreateUserRequest {
+export interface UserResponse {
+  id: string;
   name: string;
-  email: string;
-  password: string;
+  email?: string;
 }

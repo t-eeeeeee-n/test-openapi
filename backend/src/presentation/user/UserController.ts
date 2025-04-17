@@ -1,20 +1,13 @@
-import { Controller, Get, Post, Route, Tags, Body, Path, Delete, SuccessResponse, Put } from 'tsoa';
-import { User } from '../../domain/user/User';
-import { CreateUserUseCase } from '../../application/user/CreateUserUseCase';
-import { GetUserUseCase } from '../../application/user/GetUserUseCase';
-import { GetUsersUseCase } from '../../application/user/GetUsersUseCase';
-import { PrismaUserRepository } from '../../infrastructure/user/PrismaUserRepository'
+import {Body, Controller, Delete, Get, Path, Post, Put, Route, SuccessResponse, Tags} from 'tsoa';
+import {CreateUserUseCase} from '../../application/user/CreateUserUseCase';
+import {GetUserUseCase} from '../../application/user/GetUserUseCase';
+import {GetUsersUseCase} from '../../application/user/GetUsersUseCase';
+import {PrismaUserRepository} from '../../infrastructure/user/PrismaUserRepository'
 import {DeleteUserUseCase} from "../../application/user/DeleteUserUseCase";
 import {UpdateUserUseCase} from "../../application/user/UpdateUserUseCase";
-
-interface CreateUserRequest {
-    name: string;
-}
-
-interface UpdateUserRequest {
-    id: string;
-    name: string;
-}
+import {CreateUserRequest} from '../../dto/user/CreateUserRequest';
+import {UpdateUserRequest} from '../../dto/user/UpdateUserRequest';
+import {UserResponse} from '../../dto/user/UserResponse';
 
 @Route('users')
 @Tags('users')
@@ -22,19 +15,22 @@ export class UserController extends Controller {
     private userRepo = new PrismaUserRepository();
 
     @Get('{userId}')
-    async getUser(@Path() userId: string): Promise<User> {
+    async getUser(@Path() userId: string): Promise<UserResponse> {
         const useCase = new GetUserUseCase(this.userRepo);
         return useCase.execute(userId);
     }
 
+    @SuccessResponse("201", "Created")
     @Post()
-    async createUser(@Body() body: CreateUserRequest): Promise<User> {
+    async createUser(@Body() body: CreateUserRequest): Promise<UserResponse> {
         const useCase = new CreateUserUseCase(this.userRepo);
-        return useCase.execute(body.name);
+        const user = await useCase.execute(body);
+        this.setStatus(201);
+        return user;
     }
 
     @Get()
-    async getUsers(): Promise<User[]> {
+    async getUsers(): Promise<UserResponse[]> {
         const useCase = new GetUsersUseCase(this.userRepo);
         return useCase.execute();
     }
@@ -47,11 +43,9 @@ export class UserController extends Controller {
     }
 
     @Put()
-    async updateUser(@Body() body: UpdateUserRequest): Promise<User> {
+    @SuccessResponse("200", "Updated")
+    async updateUser(@Body() body: UpdateUserRequest): Promise<UserResponse> {
         const useCase = new UpdateUserUseCase(this.userRepo);
-        return useCase.execute({
-            id: body.id,
-            name: body.name,
-        });
+        return await useCase.execute(body)
     }
 }

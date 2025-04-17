@@ -26,7 +26,7 @@ import type {
 import type {
   CreateUserRequest,
   UpdateUserRequest,
-  User
+  UserResponse
 } from '.././model';
 
 import customFetcher from '.././fetcher';
@@ -40,7 +40,7 @@ export const getUser = (
 ) => {
       
       
-      return customFetcher<User>(
+      return customFetcher<UserResponse>(
       {url: `/users/${userId}`, method: 'GET', signal
     },
       );
@@ -176,7 +176,7 @@ const {mutation: mutationOptions} = options ?
 ) => {
       
       
-      return customFetcher<User>(
+      return customFetcher<UserResponse>(
       {url: `/users`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: createUserRequest, signal
@@ -234,7 +234,7 @@ const {mutation: mutationOptions} = options ?
 ) => {
       
       
-      return customFetcher<User[]>(
+      return customFetcher<UserResponse[]>(
       {url: `/users`, method: 'GET', signal
     },
       );
@@ -314,7 +314,7 @@ export const updateUser = (
  ) => {
       
       
-      return customFetcher<User>(
+      return customFetcher<UserResponse>(
       {url: `/users`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
       data: updateUserRequest

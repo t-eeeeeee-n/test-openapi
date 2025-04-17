@@ -5,8 +5,6 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export interface CreateUserRequest {
-  name: string;
-  email: string;
-  password: string;
-}
+export type Refresh200 = {
+  accessToken: string;
+};
