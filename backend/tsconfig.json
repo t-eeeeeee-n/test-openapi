@@ -11,5 +11,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "types": ["jest"]
-  }
+  },
+  "exclude": ["tests"]
 }
