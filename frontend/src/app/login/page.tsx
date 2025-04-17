@@ -1,7 +1,7 @@
 'use client';
 
 import { useLogin } from '@/api/auth/auth';
-import {useState} from "react"; // orval が生成したファイルから
+import {useState} from "react";
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');

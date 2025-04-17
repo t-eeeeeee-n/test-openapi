@@ -9,7 +9,7 @@ export const logout = async (userId: string) => {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         alert('ログアウトしました');
-        // router.push('/login'); ← 必要なら
+        // router.push('/login');
     } else {
         console.error('ログアウト失敗');
     }

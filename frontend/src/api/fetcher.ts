@@ -33,7 +33,6 @@ const customFetcher = async <T>({ url, method, data, ...rest }: FetcherParams): 
             const { accessToken } = await refreshRes.json();
             localStorage.setItem('accessToken', accessToken);
 
-            // ✅ 再リトライ（1回だけ）
             return customFetcher({ url, method, data, ...rest });
         }
     }

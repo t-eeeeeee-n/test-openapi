@@ -1,8 +1,8 @@
-import {UserManagementRepository} from '../../domain/user/UserManagementRepository';
+import {UserRepository} from '../../domain/user/UserRepository';
 import {UserResponse} from "../../dto/user/UserResponse";
 
 export class GetUserUseCase {
-    constructor(private readonly userRepo: UserManagementRepository) {}
+    constructor(private readonly userRepo: UserRepository) {}
 
     async execute(userId: string): Promise<UserResponse> {
         const user = await this.userRepo.findById(userId);

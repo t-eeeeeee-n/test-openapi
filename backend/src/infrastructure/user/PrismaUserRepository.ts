@@ -1,13 +1,12 @@
 import {PrismaClient} from '@prisma/client';
-import {UserManagementRepository} from "../../domain/user/UserManagementRepository";
+import {UserRepository} from "../../domain/user/UserRepository";
 import {UpdateUserRequest} from "../../dto/user/UpdateUserRequest";
-import {UserResponse} from "../../dto/user/UserResponse";
 import {CreateUserRequest} from "../../dto/user/CreateUserRequest";
 import {User} from "../../domain/user/User";
 
 const prisma = new PrismaClient();
 
-export class PrismaUserRepository implements UserManagementRepository {
+export class PrismaUserRepository implements UserRepository {
     async save(user: CreateUserRequest): Promise<User> {
         return prisma.user.create({data: user});
     }

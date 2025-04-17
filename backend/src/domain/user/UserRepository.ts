@@ -1,8 +1,11 @@
-import { User } from './User';
+import { UpdateUserRequest } from '../../dto/user/UpdateUserRequest';
+import {CreateUserRequest} from "../../dto/user/CreateUserRequest";
+import {User} from "./User";
 
 export interface UserRepository {
-  findByEmail(email: string): Promise<User | null>;
-  updateRefreshToken(userId: string, refreshToken: string | null): Promise<void>;
-  save(user: User): Promise<void>;
-  findById(id: string): Promise<User | null>;
+    save(user: CreateUserRequest): Promise<User>;
+    findById(id: string): Promise<User | undefined>;
+    findAll(): Promise<User[]>;
+    delete(id: string): Promise<void>;
+    update(data: UpdateUserRequest): Promise<User>;
 }

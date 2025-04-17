@@ -7,8 +7,11 @@
     "build": "tsc",
     "dev": "ts-node-dev --poll src/server.ts",
     "tsoa:gen": "tsoa spec && tsoa routes",
+    "start": "node dist/server.js",
     "test": "jest",
-    "start": "node dist/server.js"
+    "test:docker": "npm run test:setup && npm test && npm run test:teardown",
+    "test:setup": "docker compose -f docker-compose.test.yml up -d",
+    "test:teardown": "docker compose -f docker-compose.test.yml down -v"
   },
   "keywords": [],
   "author": "",

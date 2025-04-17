@@ -1,11 +1,10 @@
-// src/infrastructure/auth/PrismaAuthUserRepository.ts
 import { PrismaClient } from '@prisma/client';
 import { User } from '../../domain/user/User';
-import { UserRepository } from '../../domain/user/UserRepository';
+import { AuthUserRepository } from '../../domain/auth/AuthUserRepository';
 
 const prisma = new PrismaClient();
 
-export class PrismaAuthUserRepository implements UserRepository {
+export class PrismaAuthUserRepository implements AuthUserRepository {
     async findByEmail(email: string): Promise<User | null> {
         const user = await prisma.user.findUnique({ where: { email } });
         return user ? new User(user) : null;

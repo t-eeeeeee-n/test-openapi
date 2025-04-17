@@ -24,9 +24,9 @@ export class UserController extends Controller {
     @Post()
     async createUser(@Body() body: CreateUserRequest): Promise<UserResponse> {
         const useCase = new CreateUserUseCase(this.userRepo);
-        const user = await useCase.execute(body);
+        const res = await useCase.execute(body);
         this.setStatus(201);
-        return user;
+        return res;
     }
 
     @Get()
