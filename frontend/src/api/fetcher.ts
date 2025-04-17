@@ -9,7 +9,7 @@ interface FetcherParams {
 const customFetcher = async <T>({ url, method, data, ...rest }: FetcherParams): Promise<T> => {
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001';
 
-    let token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+    const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
 
     const res = await fetch(`${baseUrl}${url}`, {
         method,

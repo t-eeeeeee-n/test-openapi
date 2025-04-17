@@ -1,12 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import {useCreateUser, useDeleteUser, useGetUsers, useUpdateUser} from '@/api/users/users';
+import {useDeleteUser, useGetUsers, useUpdateUser} from '@/api/users/users';
 
 export default function HomePage() {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [editingUserId, setEditingUserId] = useState<string | null>(null);
     const [editedName, setEditedName] = useState('');
 
