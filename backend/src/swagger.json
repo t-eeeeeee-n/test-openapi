@@ -268,8 +268,8 @@
 			"post": {
 				"operationId": "Register",
 				"responses": {
-					"200": {
-						"description": "Ok",
+					"201": {
+						"description": "Created",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -301,7 +301,7 @@
 				"operationId": "Login",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "OK",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -333,7 +333,7 @@
 				"operationId": "Refresh",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "OK",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -381,7 +381,7 @@
 				"operationId": "Logout",
 				"responses": {
 					"204": {
-						"description": "No content"
+						"description": "No Content"
 					}
 				},
 				"tags": [
