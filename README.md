@@ -21,8 +21,8 @@ Google拡張機能の開発に向けた、Next.js × Express × Prisma × OpenAP
 | サービス  | URL |
 |-----------|-----|
 | Frontend | https://test-openapi-iihis857y-tens-projects-e11f752a.vercel.app/ |
-| Backend  | https://your-backend.up.railway.app |
-| Swagger  | https://your-backend.up.railway.app/docs |
+| Backend  | https://test-openapi-production-0cb6.up.railway.app |
+| Swagger  | https://test-openapi-production-0cb6.up.railway.app/docs/ |
 
 ---
 
