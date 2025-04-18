@@ -12,5 +12,6 @@
     "emitDecoratorMetadata": true,
     "types": ["jest"]
   },
-  "exclude": ["tests"]
+  "exclude": ["tests"],
+  "include": ["src"]
 }
